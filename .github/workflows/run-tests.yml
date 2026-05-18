@@ -63,6 +63,9 @@ jobs:
       - name: List Installed Dependencies
         run: composer show -D
 
+      - name: Pre-pull test images
+        run: docker pull alpine:latest
+
       - name: Execute tests
         env:
           DOCKER_API_VERSION: v1.48
