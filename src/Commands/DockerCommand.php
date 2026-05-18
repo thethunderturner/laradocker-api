@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace TheThunderTurner\Docker\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class DockerCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'laradocker-api';
 
     public $description = 'My command';
 

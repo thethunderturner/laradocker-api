@@ -1,17 +1,17 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "thethunderturner/laradocker-api",
+    "description": "A powerful docker API, built for laravel",
     "keywords": [
-        ":vendor_name",
+        "TheThunderTurner",
         "laravel",
-        ":package_slug"
+        "laradocker-api"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/thethunderturner/laradocker-api",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Matthew Biskas",
+            "email": "matthewbiskas@gmail.com",
             "role": "Developer"
         }
     ],
@@ -35,13 +35,13 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src/",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories/"
+            "TheThunderTurner\\Docker\\": "src/",
+            "TheThunderTurner\\Docker\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests/",
+            "TheThunderTurner\\Docker\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/"
         }
     },
@@ -63,10 +63,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "TheThunderTurner\\Docker\\DockerServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "Docker": "TheThunderTurner\\Docker\\Facades\\Docker"
             }
         }
     },
