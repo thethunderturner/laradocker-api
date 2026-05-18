@@ -1,19 +1,17 @@
-# A powerful docker API, built for laravel
+# Laradocker-API
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/thethunderturner/laradocker-api.svg?style=flat-square)](https://packagist.org/packages/thethunderturner/laradocker-api)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/thethunderturner/laradocker-api/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/thethunderturner/laradocker-api/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/thethunderturner/laradocker-api/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/thethunderturner/laradocker-api/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/thethunderturner/laradocker-api.svg?style=flat-square)](https://packagist.org/packages/thethunderturner/laradocker-api)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+A powerful docker API, built for Laravel
 
-## Support us
+>[!IMPORTANT]
+> This plugin is still in early development, so please be patient until everything is implemented. Pull requests are welcome.
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/laradocker-api.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/laradocker-api)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+## Documentation
+https://docs.docker.com/reference/api/engine/version/v1.54/
 
 ## Installation
 
