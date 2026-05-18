@@ -65,5 +65,5 @@ jobs:
 
       - name: Execute tests
         env:
-          LARADOCKER_API_VERSION: v1.48
+          DOCKER_API_VERSION: v1.48
         run: vendor/bin/pest --ci
