@@ -11,7 +11,8 @@ afterEach(function () {
     foreach ($this->cleanup as $id) {
         try {
             $this->docker->containers()->remove($id, force: true);
-        } catch (\Throwable) {}
+        } catch (Throwable) {
+        }
     }
 });
 
@@ -39,7 +40,7 @@ it('list containers', function () {
 });
 
 it('list containers (with limit)', function () {
-    $marker = 'limit-test-' . uniqid();
+    $marker = 'limit-test-'.uniqid();
 
     for ($i = 1; $i <= 5; $i++) {
         $created = $this->docker->containers()->create([
@@ -60,7 +61,7 @@ it('list containers (with limit)', function () {
 });
 
 it('list containers (with filter)', function () {
-    $marker = 'filter-test-' . uniqid();
+    $marker = 'filter-test-'.uniqid();
 
     foreach (['alice', 'bob', 'carol'] as $owner) {
         $created = $this->docker->containers()->create([
