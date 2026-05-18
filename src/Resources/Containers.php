@@ -97,6 +97,10 @@ class Containers
     /**
      * Fetch and demultiplex container logs.
      *
+     * NOTE: Even though "tty" isn't a query parameter Docker accepts, I added it because
+     * we can specify that the response will be plain text, and skip the demuxer.
+     *
+     * The demuxer is there to translate <<Multiplexed streams with 8-byte headers per frame>>
      * @return array{stdout: string, stderr: string}
      *
      * @throws ConnectionException
@@ -105,25 +109,29 @@ class Containers
      */
     public function logs(
         string $id,
-        ?bool $follow = false,
-        ?bool $stdout = false,
-        ?bool $stderr = false,
+        bool $stdout = true,
+        bool $stderr = true,
+        bool $timestamps = false,
+        string $tail = 'all',
         ?int $since = null,
         ?int $until = null,
-        ?bool $timestamps = false,
-        ?string $tail = 'all',
+        bool $isTty = false,
     ): array {
         $query = [
-            'follow' => $follow,
-            'stdout' => $stdout,
-            'stderr' => $stderr,
-            'since' => $since,
-            'until' => $until,
-            'timestamps' => $timestamps,
+            'stdout' => $stdout ? 'true' : 'false',
+            'stderr' => $stderr ? 'true' : 'false',
+            'timestamps' => $timestamps ? 'true' : 'false',
             'tail' => $tail,
         ];
 
+        if ($since !== null) $query['since'] = (string) $since;
+        if ($until !== null) $query['until'] = (string) $until;
+
         $body = $this->transport->get("/containers/{$id}/logs", $query)->body();
+
+        if ($isTty) {
+            return ['stdout' => $body, 'stderr' => ''];
+        }
 
         return LogDemuxer::demuxLogs($body);
     }
@@ -133,7 +141,6 @@ class Containers
      * 0: Modified ("C")
      * 1: Added ("A")
      * 2: Deleted ("D")
-     *
      *
      * @throws ConnectionException
      *
@@ -192,11 +199,13 @@ class Containers
      *
      * @link https://docs.docker.com/reference/api/engine/version/v1.54/#tag/Container/operation/ContainerStart
      */
-    public function start(string $id, string $detachKeys): void
+    public function start(string $id, ?string $detachKeys = null): void
     {
-        $this->transport->post("/containers/{$id}/start", [
-            'detachKeys' => $detachKeys,
-        ]);
+        $body = [];
+        if ($detachKeys) {
+            $body['detachKeys'] = $detachKeys;
+        }
+        $this->transport->post("/containers/{$id}/start", $body);
     }
 
     /**
