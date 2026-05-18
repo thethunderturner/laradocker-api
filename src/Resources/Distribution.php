@@ -2,7 +2,4 @@
 
 namespace TheThunderTurner\Docker\Resources;
 
-class Distribution
-{
-
-}
+class Distribution {}

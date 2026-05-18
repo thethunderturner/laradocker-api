@@ -15,12 +15,11 @@ class Containers
     /**
      * Returns a list of containers. For details on the format, see the inspect endpoint.
      *
-     * @param bool $all
-     * @param int|null $limit
-     * @param bool $size
-     * @param array<string, mixed> $filters
+     * @param  array<string, mixed>  $filters
      * @return array<int, array<string, mixed>>
+     *
      * @throws ConnectionException
+     *
      * @link  https://docs.docker.com/reference/api/engine/version/v1.54/#tag/Container/operation/ContainerList
      */
     public function list(bool $all = false, ?int $limit = null, bool $size = false, array $filters = []): array
@@ -44,11 +43,10 @@ class Containers
     /**
      * Create a new container.
      *
-     * @param array $config
-     * @param string|null $name
-     * @param string|null $platform
      * @return array<string, mixed>
+     *
      * @throws ConnectionException
+     *
      * @link https://docs.docker.com/reference/api/engine/version/v1.54/#tag/Container/operation/ContainerCreate
      */
     public function create(array $config, ?string $name = null, ?string $platform = null): array
@@ -66,15 +64,13 @@ class Containers
         return $this->transport->post('/containers/create', $config, $query)->json();
     }
 
-
     /**
      * Return low-level information about a container.
      *
-     * @param string $id
-     * @param bool $size
      * @return array<string, mixed>
      *
      * @throws ConnectionException
+     *
      * @link https://docs.docker.com/reference/api/engine/version/v1.54/#tag/Container/operation/ContainerInspect
      */
     public function inspect(string $id, bool $size = false): array
@@ -87,11 +83,10 @@ class Containers
     /**
      * On Unix systems, this is done by running the ps command. This endpoint is not supported on Windows.
      *
-     * @param string $id
-     * @param string $psArgs
      * @return array<string, mixed>
      *
      * @throws ConnectionException
+     *
      * @link https://docs.docker.com/reference/api/engine/version/v1.54/#tag/Container/operation/ContainerTop
      */
     public function top(string $id, string $psArgs = '-ef'): array
@@ -102,17 +97,10 @@ class Containers
     /**
      * Fetch and demultiplex container logs.
      *
-     * @param string $id
-     * @param bool|null $follow
-     * @param bool|null $stdout
-     * @param bool|null $stderr
-     * @param int|null $since
-     * @param int|null $until
-     * @param bool|null $timestamps
-     * @param string|null $tail
      * @return array{stdout: string, stderr: string}
      *
      * @throws ConnectionException
+     *
      * @link https://docs.docker.com/reference/api/engine/version/v1.54/#tag/Container/operation/ContainerLogs
      */
     public function logs(
@@ -146,10 +134,9 @@ class Containers
      * 1: Added ("A")
      * 2: Deleted ("D")
      *
-     * @param string $id
-     * @return array|null
      *
      * @throws ConnectionException
+     *
      * @link https://docs.docker.com/reference/api/engine/version/v1.54/#tag/Container/operation/ContainerChanges
      */
     public function changes(string $id): ?array
@@ -160,9 +147,8 @@ class Containers
     /**
      * Export the contents of a container as a tarball.
      *
-     * @param string $id
-     * @return array|null
      * @throws ConnectionException
+     *
      * @link https://docs.docker.com/reference/api/engine/version/v1.54/#tag/Container/operation/ContainerChanges
      */
     public function export(string $id): ?array
@@ -173,12 +159,9 @@ class Containers
     /**
      * This endpoint returns a live stream of a container’s resource usage statistics.
      *
-     * @param string $id
-     * @param bool $stream
-     * @param bool $oneShot
-     * @return array
      *
      * @throws ConnectionException
+     *
      * @link https://docs.docker.com/reference/api/engine/version/v1.54/#tag/Container/operation/ContainerStats
      */
     public function stats(string $id, bool $stream = true, bool $oneShot = false): array
@@ -192,10 +175,6 @@ class Containers
     /**
      * Resize the TTY for a container.
      *
-     * @param string $id
-     * @param int $height
-     * @param int $width
-     * @return array
      * @throws ConnectionException
      */
     public function resize(string $id, int $height, int $width): array
@@ -209,9 +188,8 @@ class Containers
     /**
      * Start a container.
      *
-     * @param string $id
-     * @param string $detachKeys
      * @throws ConnectionException
+     *
      * @link https://docs.docker.com/reference/api/engine/version/v1.54/#tag/Container/operation/ContainerStart
      */
     public function start(string $id, string $detachKeys): void
@@ -224,10 +202,8 @@ class Containers
     /**
      * Stop a container.
      *
-     * @param string $id
-     * @param string|null $signal
-     * @param int|null $timeout
      * @throws ConnectionException
+     *
      * @link https://docs.docker.com/reference/api/engine/version/v1.54/#tag/Container/operation/ContainerStop
      */
     public function stop(string $id, ?string $signal = null, ?int $timeout = null): void
@@ -248,13 +224,11 @@ class Containers
     /**
      * Restart a container.
      *
-     * @param string $id
-     * @param string|null $signal
-     * @param int|null $timeout
      * @throws ConnectionException
+     *
      * @link https://docs.docker.com/reference/api/engine/version/v1.54/#tag/Container/operation/ContainerRestart
      */
-    public function restart(string $id, ?string $signal = null ,?int $timeout = null): void
+    public function restart(string $id, ?string $signal = null, ?int $timeout = null): void
     {
         $query = [];
 
@@ -272,9 +246,8 @@ class Containers
     /**
      * Send a signal to a container (default SIGKILL).
      *
-     * @param string $id
-     * @param string $signal
      * @throws ConnectionException
+     *
      * @link https://docs.docker.com/reference/api/engine/version/v1.54/#tag/Container/operation/ContainerKill
      */
     public function kill(string $id, string $signal = 'SIGKILL'): void
@@ -285,21 +258,20 @@ class Containers
     /**
      * Change various configuration options of a container without having to recreate it.
      *
-     * @param string $id
-     * @param array $config
      * @throws ConnectionException
+     *
      * @link https://docs.docker.com/reference/api/engine/version/v1.54/#tag/Container/operation/ContainerUpdate
      */
-    public function update(string $id, array $config): void {
+    public function update(string $id, array $config): void
+    {
         $this->transport->post("/containers/{$id}/update", $config)->json();
     }
 
     /**
      * Rename a container.
      *
-     * @param string $id
-     * @param string $name
      * @throws ConnectionException
+     *
      * @link https://docs.docker.com/reference/api/engine/version/v1.54/#tag/Container/operation/ContainerRename
      */
     public function rename(string $id, string $name): void
@@ -310,8 +282,8 @@ class Containers
     /**
      * Use the freezer cgroup to suspend all processes in a container.
      *
-     * @param string $id
      * @throws ConnectionException
+     *
      * @link https://docs.docker.com/reference/api/engine/version/v1.54/#tag/Container/operation/ContainerPause
      */
     public function pause(string $id): void
@@ -322,8 +294,8 @@ class Containers
     /**
      * Resume a container which has been paused.
      *
-     * @param string $id
      * @throws ConnectionException
+     *
      * @link https://docs.docker.com/reference/api/engine/version/v1.54/#tag/Container/operation/ContainerUnpause
      */
     public function unpause(string $id): void
@@ -334,11 +306,9 @@ class Containers
     /**
      * Block until a container stops, then return its exit code.
      *
-     * @param string $id
-     * @param string $condition
-     * @return array
      *
      * @throws ConnectionException
+     *
      * @link https://docs.docker.com/reference/api/engine/version/v1.54/#tag/Container/operation/ContainerWait
      */
     public function wait(string $id, string $condition = 'not-running'): array
@@ -351,6 +321,7 @@ class Containers
      *
      * @throws ConnectionException
      * @throws DockerException
+     *
      * @link https://docs.docker.com/reference/api/engine/version/v1.54/#tag/Container/operation/ContainerDelete
      */
     public function remove(string $id, bool $removeVolumes = false, bool $force = false, bool $link = false): void
@@ -364,6 +335,7 @@ class Containers
 
     /**
      * A response header X-Docker-Container-Path-Stat is returned, containing a base64 - encoded JSON object with some filesystem header information about the path.
+     *
      * @return array<string, mixed>
      *
      * @throws ConnectionException
@@ -405,10 +377,8 @@ class Containers
     /**
      * Get a tar archive of a resource in the filesystem of container id.
      *
-     * @param string $id
-     * @param string $path
-     * @return string
      * @throws ConnectionException
+     *
      * @link https://docs.docker.com/reference/api/engine/version/v1.54/#tag/Container/operation/ContainerArchive
      */
     public function getArchive(string $id, string $path): string
@@ -422,12 +392,8 @@ class Containers
      * Upload a tar archive to be extracted to a path in the filesystem of container id. path parameter is asserted to be a directory.
      * If it exists as a file, 400 error will be returned with message "not a directory".
      *
-     * @param string $id
-     * @param string $path
-     * @param string $tarball
-     * @param bool $noOverwriteDirNonDir
-     * @param bool $copyUidGid
      * @throws ConnectionException
+     *
      * @link https://docs.docker.com/reference/api/engine/version/v1.54/#tag/Container/operation/PutContainerArchive
      */
     public function putArchive(
@@ -450,7 +416,6 @@ class Containers
      * Remove all stopped containers.
      *
      * @param  array<string, mixed>  $filters
-     * @return array
      *
      * @throws ConnectionException
      * @throws DockerException

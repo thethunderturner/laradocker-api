@@ -97,7 +97,6 @@ class Transport
         return $this->ensureOk($request->put($url), $endpoint);
     }
 
-
     /**
      * @throws DockerException
      */
