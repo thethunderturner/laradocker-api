@@ -50,9 +50,6 @@ jobs:
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo
           coverage: none
 
-      - name: Setup Docker (Ubuntu)
-        uses: docker/setup-buildx-action@v3
-
       - name: Setup problem matchers
         run: |
           echo "::add-matcher::${{ runner.tool_cache }}/php.json"
@@ -67,4 +64,6 @@ jobs:
         run: composer show -D
 
       - name: Execute tests
+        env:
+          LARADOCKER_API_VERSION: v1.48
         run: vendor/bin/pest --ci
