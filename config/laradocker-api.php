@@ -1,6 +1,5 @@
 <?php
 
-// config for TheThunderTurner/Docker
 return [
-
+    'socket' => env('DOCKER_SOCKET', '/var/run/docker.sock'),
 ];

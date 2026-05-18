@@ -49,6 +49,18 @@ Optionally, you can publish the views using
 php artisan vendor:publish --tag="laradocker-api-views"
 ```
 
+## Setup
+
+If you're getting errors like: **Failed to connect to localhost**, then you need to add docker to the group
+```bash
+sudo usermod -aG docker $USER
+```
+and reboot (or log out and in again) for changes to take effect. Then if you run
+```
+groups
+```
+you should see docker.
+
 ## Usage
 
 ```php

@@ -4,7 +4,6 @@ namespace TheThunderTurner\Docker;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use TheThunderTurner\Docker\Commands\DockerCommand;
 
 class DockerServiceProvider extends PackageServiceProvider
 {
@@ -17,9 +16,6 @@ class DockerServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('laradocker-api')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_laradocker_api_table')
-            ->hasCommand(DockerCommand::class);
+            ->hasConfigFile();
     }
 }
