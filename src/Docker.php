@@ -4,7 +4,6 @@ namespace TheThunderTurner\Docker;
 
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\PendingRequest;
-use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 
 class Docker
@@ -59,12 +58,8 @@ class Docker
     }
 
     /**
-     * @param string $id
-     * @param bool $stdout
-     * @param bool $stderr
-     * @param bool $timestamps
-     * @param int|null $tail
      * @return array{stdout: string, stderr: string}
+     *
      * @throws ConnectionException
      */
     public function containerLogs(
