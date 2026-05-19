@@ -47,7 +47,11 @@ class Transport
     {
         $url = $query === [] ? $endpoint : $endpoint.'?'.http_build_query($query);
 
-        return $this->ensureOk($this->client()->post($url, $body ?? []), $endpoint);
+        $response = $body !== null
+            ? $this->client()->post($url, $body)
+            : $this->client()->post($url);
+
+        return $this->ensureOk($response, $endpoint);
     }
 
     /**

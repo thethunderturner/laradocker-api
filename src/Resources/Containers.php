@@ -156,11 +156,11 @@ class Containers
      *
      * @throws ConnectionException
      *
-     * @link https://docs.docker.com/reference/api/engine/version/v1.54/#tag/Container/operation/ContainerChanges
+     * @link https://docs.docker.com/reference/api/engine/version/v1.54/#tag/Container/operation/ContainerExport
      */
-    public function export(string $id): ?array
+    public function export(string $id): string
     {
-        return $this->transport->get("/containers/{$id}/export")->json();
+        return $this->transport->get("/containers/{$id}/export")->body();
     }
 
     /**
@@ -183,13 +183,14 @@ class Containers
      * Resize the TTY for a container.
      *
      * @throws ConnectionException
+     * @link https://docs.docker.com/reference/api/engine/version/v1.54/#tag/Container/operation/ContainerResize
      */
-    public function resize(string $id, int $height, int $width): array
+    public function resize(string $id, int $height, int $width): void
     {
-        return $this->transport->post("/containers/{$id}/resize", [
-            'h' => $height,
-            'w' => $width,
-        ])->json();
+        $this->transport->post("/containers/{$id}/resize", null, [
+            'h' => (string) $height,
+            'w' => (string) $width,
+        ]);
     }
 
     /**
@@ -201,11 +202,7 @@ class Containers
      */
     public function start(string $id, ?string $detachKeys = null): void
     {
-        $body = [];
-        if ($detachKeys) {
-            $body['detachKeys'] = $detachKeys;
-        }
-        $this->transport->post("/containers/{$id}/start", $body);
+        $this->transport->post("/containers/{$id}/start", $detachKeys !== null ? ['detachKeys' => $detachKeys] : null);
     }
 
     /**

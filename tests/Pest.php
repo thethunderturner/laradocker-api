@@ -3,6 +3,8 @@
 use TheThunderTurner\Docker\Docker;
 use TheThunderTurner\Docker\Tests\TestCase;
 
+require_once __DIR__.'/Helpers.php';
+
 uses(TestCase::class)
     ->beforeEach(function (): void {
         $this->docker = new Docker;
