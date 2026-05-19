@@ -2,6 +2,14 @@
 
 All notable changes to `laradocker-api` will be documented in this file.
 
+## v0.2.0 - 2026-05-19
+
+### What's Changed
+
+* Feature: System by @thethunderturner in https://github.com/thethunderturner/laradocker-api/pull/2
+
+**Full Changelog**: https://github.com/thethunderturner/laradocker-api/compare/v0.1.0...v0.2.0
+
 ## v0.1.0 - 2026-05-19
 
 ### What's Changed
