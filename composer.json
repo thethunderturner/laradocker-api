@@ -51,6 +51,7 @@
         "analyse": "vendor/bin/phpstan analyse",
         "test": "vendor/bin/pest",
         "test-coverage": "vendor/bin/pest --coverage",
+        "html-coverage": "vendor/bin/pest --coverage-html=coverage && xdg-open coverage/index.html",
         "format": "vendor/bin/pint"
     },
     "config": {

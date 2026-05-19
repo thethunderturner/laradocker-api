@@ -27,8 +27,8 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os: [ubuntu-latest, windows-latest]
-        php: [8.5, 8.4, 8.3]
+        os: [ubuntu-latest]
+        php: [8.5, 8.4]
         laravel: [13.*, 12.*]
         stability: [prefer-lowest, prefer-stable]
         include:
@@ -63,5 +63,10 @@ jobs:
       - name: List Installed Dependencies
         run: composer show -D
 
+      - name: Pre-pull test images
+        run: docker pull alpine:latest
+
       - name: Execute tests
+        env:
+          DOCKER_API_VERSION: v1.48
         run: vendor/bin/pest --ci
