@@ -58,15 +58,17 @@ class System
      *
      * @link https://docs.docker.com/reference/api/engine/version/v1.54/#tag/System/operation/SystemPing
      */
-    public function ping(): array
+    public function ping(): string
     {
         return $this->transport
             ->get('/_ping')
-            ->json();
+            ->body();
     }
 
     /**
      * This is a dummy endpoint you can use to test if the server is accessible.
+     *
+     * @return array<string, string>
      *
      * @throws ConnectionException
      *
@@ -76,7 +78,7 @@ class System
     {
         return $this->transport
             ->head('/_ping')
-            ->json();
+            ->headers();
     }
 
     /**
