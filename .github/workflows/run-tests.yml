@@ -66,7 +66,13 @@ jobs:
       - name: Pre-pull test images
         run: docker pull alpine:latest
 
+      - name: Set up Docker
+        uses: docker/setup-docker-action@v4
+        with:
+          channel: stable
+          version: '29.5.0'
+
       - name: Execute tests
-        env:
-          DOCKER_API_VERSION: v1.48
+#        env:
+#          DOCKER_API_VERSION: v1.48
         run: vendor/bin/pest --ci
