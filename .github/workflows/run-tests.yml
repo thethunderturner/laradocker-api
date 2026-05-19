@@ -69,14 +69,22 @@ jobs:
           channel: stable
           version: '29.5.0'
 
+      - name: Get new Docker socket path
+        id: docker-socket
+        run: |
+          SOCKET=$(docker context inspect setup-docker-action --format '{{.Endpoints.docker.Host}}' | sed 's|unix://||')
+          echo "path=$SOCKET" >> $GITHUB_OUTPUT
+          echo "Using socket: $SOCKET"
+          echo "---"
+          curl --silent --unix-socket "$SOCKET" http://localhost/version | head -c 300
+          echo ""
+
       - name: Pre-pull test images
+        env:
+          DOCKER_HOST: unix://${{ steps.docker-socket.outputs.path }}
         run: docker pull alpine:latest
 
-      - name: Verify Docker version
-        run: |
-          docker version
-          echo "---"
-          curl --silent --unix-socket /var/run/docker.sock http://localhost/version
-
-#      - name: Execute tests
-#        run: vendor/bin/pest --ci
+      - name: Execute tests
+        env:
+          DOCKER_SOCKET: ${{ steps.docker-socket.outputs.path }}
+        run: vendor/bin/pest --ci
