@@ -3,6 +3,7 @@
 namespace TheThunderTurner\Docker;
 
 use TheThunderTurner\Docker\Resources\Containers;
+use TheThunderTurner\Docker\Resources\System;
 
 class Docker
 {
@@ -16,5 +17,10 @@ class Docker
     public function containers(): Containers
     {
         return new Containers($this->transport);
+    }
+
+    public function system(): System
+    {
+        return new System($this->transport);
     }
 }
