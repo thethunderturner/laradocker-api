@@ -9,6 +9,16 @@ it('creates a container with minimal config', function () {
     expect($created['Id'])->toBeString();
 });
 
+it('accepts a platform', function () {
+    $created = $this->docker->containers()->create(
+        ['Image' => 'alpine:latest'],
+        platform: 'linux/amd64',
+    );
+    $this->cleanup[] = $created['Id'];
+
+    expect($created['Id'])->toBeString();
+});
+
 it('accepts a name', function () {
     $name = 'pest-'.uniqid();
     $created = $this->docker->containers()->create(

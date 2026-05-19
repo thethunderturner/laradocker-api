@@ -113,6 +113,22 @@ it('reads logs from a stopped container', function () {
     expect($logs['stdout'])->toContain('before-stop');
 });
 
+it('reads TTY container logs without demuxing', function () {
+    $created = $this->docker->containers()->create([
+        'Image' => 'alpine:latest',
+        'Cmd' => ['echo', 'tty-output'],
+        'Tty' => true,
+    ]);
+    $this->cleanup[] = $created['Id'];
+    $this->docker->containers()->start($created['Id']);
+    $this->docker->containers()->wait($created['Id']);
+
+    $logs = $this->docker->containers()->logs($created['Id'], isTty: true);
+
+    expect($logs['stdout'])->toContain('tty-output')
+        ->and($logs['stderr'])->toBe('');
+});
+
 it('logs throws for non-existent container', function () {
     expect(fn () => $this->docker->containers()->logs('does-not-exist-'.uniqid()))
         ->toThrow(DockerException::class);
