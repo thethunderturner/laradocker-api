@@ -114,6 +114,6 @@ it('reads logs from a stopped container', function () {
 });
 
 it('logs throws for non-existent container', function () {
-    expect(fn () => $this->docker->containers()->logs('does-not-exist-' . uniqid()))
+    expect(fn () => $this->docker->containers()->logs('does-not-exist-'.uniqid()))
         ->toThrow(DockerException::class);
 });

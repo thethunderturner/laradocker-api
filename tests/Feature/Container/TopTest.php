@@ -52,6 +52,6 @@ it('top throws when container is not running', function () {
 });
 
 it('top throws for non-existent container', function () {
-    expect(fn () => $this->docker->containers()->top('does-not-exist-' . uniqid()))
+    expect(fn () => $this->docker->containers()->top('does-not-exist-'.uniqid()))
         ->toThrow(DockerException::class);
 });

@@ -101,6 +101,7 @@ class Containers
      * we can specify that the response will be plain text, and skip the demuxer.
      *
      * The demuxer is there to translate <<Multiplexed streams with 8-byte headers per frame>>
+     *
      * @return array{stdout: string, stderr: string}
      *
      * @throws ConnectionException
@@ -124,8 +125,12 @@ class Containers
             'tail' => $tail,
         ];
 
-        if ($since !== null) $query['since'] = (string) $since;
-        if ($until !== null) $query['until'] = (string) $until;
+        if ($since !== null) {
+            $query['since'] = (string) $since;
+        }
+        if ($until !== null) {
+            $query['until'] = (string) $until;
+        }
 
         $body = $this->transport->get("/containers/{$id}/logs", $query)->body();
 
@@ -183,6 +188,7 @@ class Containers
      * Resize the TTY for a container.
      *
      * @throws ConnectionException
+     *
      * @link https://docs.docker.com/reference/api/engine/version/v1.54/#tag/Container/operation/ContainerResize
      */
     public function resize(string $id, int $height, int $width): void
