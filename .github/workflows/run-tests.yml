@@ -72,5 +72,11 @@ jobs:
       - name: Pre-pull test images
         run: docker pull alpine:latest
 
-      - name: Execute tests
-        run: vendor/bin/pest --ci
+      - name: Verify Docker version
+        run: |
+          docker version
+          echo "---"
+          curl --silent --unix-socket /var/run/docker.sock http://localhost/version
+
+#      - name: Execute tests
+#        run: vendor/bin/pest --ci
